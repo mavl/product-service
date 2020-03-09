@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Product.API.Services;
+using Product.Domain.Interfaces;
+using Products.Infrastructure.Entities;
+using Products.Infrastructure.MapProfiles;
+using Products.Infrastructure.Repository;
 
-namespace product_service
+namespace Product.API
 {
     public class Startup
     {
@@ -26,6 +27,14 @@ namespace product_service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddAutoMapper(_ => GetAutoMapperConfiguration(), AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddDbContext<ProductDatabaseContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("productDb"),
+                    option => option.EnableRetryOnFailure()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +51,14 @@ namespace product_service
 
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+
+        private Action<IMapperConfigurationExpression> GetAutoMapperConfiguration()
+        {
+            return configuration =>
+            {
+                configuration.AddProfile<ProductMapProfile>();
+            };
         }
     }
 }

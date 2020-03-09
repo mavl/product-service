@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using Product.Domain.Exceptions;
 using Product.Domain.Interfaces;
 using Products.Infrastructure.Entities;
 
@@ -28,14 +29,20 @@ namespace Products.Infrastructure.Repository
 
         public async Task<Product.Domain.Product> GetProduct(long productId)
         {
-            return _mapper.Map<Product.Domain.Product>(
-                await _productDatabaseContext.Product.AsQueryable().SingleAsync(product => product.Id == productId));
+            var result = _mapper.Map<Product.Domain.Product>(
+                await _productDatabaseContext.Product.AsQueryable().SingleOrDefaultAsync(product => product.Id == productId));
+            
+            if(result == null)throw new NotFoundException();
+            
+            return result;
         }
 
         public async Task Update(long id, JsonPatchDocument productPatch)
         {
-            var product = await _productDatabaseContext.Product.SingleAsync(p => p.Id == id);
-            
+            var product = await _productDatabaseContext.Product.SingleOrDefaultAsync(p => p.Id == id);
+
+            if (product == null) throw new NotFoundException();
+
             productPatch.ApplyTo(product);
 
             await _productDatabaseContext.SaveChangesAsync();

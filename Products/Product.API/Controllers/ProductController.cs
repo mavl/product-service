@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Product.Domain.Exceptions;
 using Product.Domain.Interfaces;
 
 namespace Product.API.Controllers
@@ -31,9 +33,13 @@ namespace Product.API.Controllers
             {
                 return Ok(await productService.GetProduct(id));
             }
+            catch (NotFoundException e)
+            {
+                return NotFound();
+            }
             catch (Exception e)
             {
-                return StatusCode(500, "Something was wrong");
+                return StatusCode(500, e); //"Something was wrong");
             }
         }
 
@@ -52,9 +58,13 @@ namespace Product.API.Controllers
 
                 return Ok();
             }
+            catch (NotFoundException e)
+            {
+                return NotFound();
+            }
             catch (Exception e)
             {
-                return StatusCode(500, "Something was wrong");
+                return StatusCode(500, e); //"Something was wrong");
             }
         }
     }

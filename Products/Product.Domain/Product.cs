@@ -1,5 +1,8 @@
 ﻿namespace Product.Domain
 {
+    /// <summary>
+    /// Product DTO object
+    /// </summary>
     public class Product
     {
         public long Id { get; set; }

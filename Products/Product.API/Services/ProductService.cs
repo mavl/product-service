@@ -5,6 +5,9 @@ using Product.Domain.Interfaces;
 
 namespace Product.API.Services
 {
+    /// <summary>
+    /// <see cref="IProductService"/>
+    /// </summary>
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;

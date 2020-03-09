@@ -10,6 +10,9 @@ using Products.Infrastructure.Entities;
 
 namespace Products.Infrastructure.Repository
 {
+    /// <summary>
+    /// <see cref="IProductRepository"/>
+    /// </summary>
     public class ProductRepository : IProductRepository
     {
         private readonly ProductDatabaseContext _productDatabaseContext;

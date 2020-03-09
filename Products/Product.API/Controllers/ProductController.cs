@@ -39,7 +39,7 @@ namespace Product.API.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e); //"Something was wrong");
+                return StatusCode(500, "Something was wrong");
             }
         }
 
@@ -64,7 +64,7 @@ namespace Product.API.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e); //"Something was wrong");
+                return StatusCode(500,"Something was wrong");
             }
         }
     }

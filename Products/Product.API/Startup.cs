@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Product.API.Services;
 using Product.Domain.Interfaces;
@@ -46,6 +47,12 @@ namespace Product.API
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
             });
+
+            services.AddLogging(logging =>
+            {
+                logging.AddConfiguration(Configuration.GetSection("Logging"));
+                logging.AddConsole();
+            }).Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

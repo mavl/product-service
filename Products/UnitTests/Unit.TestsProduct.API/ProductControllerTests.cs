@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Product.API.Controllers;
@@ -20,7 +21,8 @@ namespace Unit.TestsProduct.API
         [TestMethod]
         public void GetAll()
         {
-            var productController = new ProductController();
+            var logger = new Mock<ILogger<ProductController>>();
+            var productController = new ProductController(logger.Object);
             var result = productController.GetAll(MockProductService().Object).Result;
 
             Assert.IsNotNull(result, "Returned result is null");
@@ -34,7 +36,8 @@ namespace Unit.TestsProduct.API
         [TestMethod]
         public void GetAllInternalError()
         {
-            var productController = new ProductController();
+            var logger = new Mock<ILogger<ProductController>>();
+            var productController = new ProductController(logger.Object);
             var result = productController.GetAll(MockProductServiceWithError().Object).Result;
 
             Assert.IsNotNull(result, "Returned result is null");
@@ -51,7 +54,8 @@ namespace Unit.TestsProduct.API
         public void GetById()
         {
             const int requestedId = 1;
-            var productController = new ProductController();
+            var logger = new Mock<ILogger<ProductController>>();
+            var productController = new ProductController(logger.Object);
             var result = productController.GetById(MockProductService().Object, requestedId).Result;
 
             Assert.IsNotNull(result, "Returned result is null");
@@ -66,7 +70,8 @@ namespace Unit.TestsProduct.API
         public void GetByIdNotFound()
         {
             const int requestedId = 4;
-            var productController = new ProductController();
+            var logger = new Mock<ILogger<ProductController>>();
+            var productController = new ProductController(logger.Object);
             var result = productController.GetById(MockProductService().Object, requestedId).Result;
 
             Assert.IsNotNull(result, "Returned result is null");
@@ -78,7 +83,8 @@ namespace Unit.TestsProduct.API
         public void GetByIdInternalError()
         {
             const int requestedId = 1;
-            var productController = new ProductController();
+            var logger = new Mock<ILogger<ProductController>>();
+            var productController = new ProductController(logger.Object);
             var result = productController.GetById(MockProductServiceWithError().Object, requestedId).Result;
 
             Assert.IsNotNull(result, "Returned result is null");
@@ -98,7 +104,8 @@ namespace Unit.TestsProduct.API
             var jsonPatch = new JsonPatchDocument();
             jsonPatch.Replace("/Description", "test");
 
-            var productController = new ProductController();
+            var logger = new Mock<ILogger<ProductController>>();
+            var productController = new ProductController(logger.Object);
             var productService = MockProductServiceForUpdate(null);
             var result = productController.UpdateDescription(productService.Object, requestedId, jsonPatch).Result;
 
@@ -115,7 +122,8 @@ namespace Unit.TestsProduct.API
             var jsonPatch = new JsonPatchDocument();
             jsonPatch.Replace("/Id", "test");
 
-            var productController = new ProductController();
+            var logger = new Mock<ILogger<ProductController>>();
+            var productController = new ProductController(logger.Object);
             var productService = MockProductServiceForUpdate(null);
             var result = productController.UpdateDescription(productService.Object, requestedId, jsonPatch).Result;
 
@@ -132,7 +140,8 @@ namespace Unit.TestsProduct.API
             var jsonPatch = new JsonPatchDocument();
             jsonPatch.Replace("/Description", "test");
 
-            var productController = new ProductController();
+            var logger = new Mock<ILogger<ProductController>>();
+            var productController = new ProductController(logger.Object);
             var productService = MockProductServiceForUpdate(new NotFoundException());
             var result = productController.UpdateDescription(productService.Object, requestedId, jsonPatch).Result;
 
@@ -149,7 +158,8 @@ namespace Unit.TestsProduct.API
             var jsonPatch = new JsonPatchDocument();
             jsonPatch.Replace("/Description", "test");
 
-            var productController = new ProductController();
+            var logger = new Mock<ILogger<ProductController>>();
+            var productController = new ProductController(logger.Object);
             var productService = MockProductServiceForUpdate(new Exception());
             var result = productController.UpdateDescription(productService.Object, requestedId, jsonPatch).Result;
 

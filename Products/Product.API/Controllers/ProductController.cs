@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Product.Domain.Exceptions;
 using Product.Domain.Interfaces;
 
@@ -16,6 +17,13 @@ namespace Product.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly ILogger<ProductController> _logger;
+
+        public ProductController(ILogger<ProductController> logger)
+        {
+            _logger = logger;
+        }
+
         /// <summary>
         /// Returns collection of products
         /// </summary>
@@ -33,6 +41,7 @@ namespace Product.API.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError(e, string.Empty);
                 return StatusCode(500, "Something was wrong");
             }
         }
@@ -57,10 +66,12 @@ namespace Product.API.Controllers
             }
             catch (NotFoundException e)
             {
+                _logger.LogError(e, string.Empty);
                 return NotFound();
             }
             catch (Exception e)
             {
+                _logger.LogError(e, string.Empty);
                 return StatusCode(500, "Something was wrong");
             }
         }
@@ -107,10 +118,12 @@ namespace Product.API.Controllers
             }
             catch (NotFoundException e)
             {
+                _logger.LogError(e, string.Empty);
                 return NotFound();
             }
             catch (Exception e)
             {
+                _logger.LogError(e, string.Empty);
                 return StatusCode(500,"Something was wrong");
             }
         }

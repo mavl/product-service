@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace Product.API.Controllers
     public class ProductController : ControllerBase
     {
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Domain.Product>),200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> GetAll([FromServices] IProductService productService)
         {
             try
@@ -27,6 +30,9 @@ namespace Product.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Domain.Product), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<Domain.Product>> GetById([FromServices] IProductService productService, long id)
         {
             try
@@ -44,6 +50,9 @@ namespace Product.API.Controllers
         }
 
         [HttpPatch("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult> UpdateDescription([FromServices]IProductService productService, [FromRoute]long id, [FromBody]JsonPatchDocument productPatch)
         {
             try

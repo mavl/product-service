@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Product.API.Services;
 using Product.Domain.Interfaces;
 using Products.Infrastructure.Entities;
@@ -35,6 +36,11 @@ namespace Product.API
             services.AddDbContext<ProductDatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("productDb"),
                     option => option.EnableRetryOnFailure()));
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo() {Title = "Product API", Version = "v1"});
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +57,11 @@ namespace Product.API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
+            });
         }
 
         private Action<IMapperConfigurationExpression> GetAutoMapperConfiguration()

@@ -1,13 +1,17 @@
 # Introduction 
-Product is a microservice which receives a request for data (as TODO) and returns product(s) associated with the input parameter.
+Product is a REST microservice to manage product data allowed operations
+- Get all products
+- Get product by id
+- Update product descrition
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+1.	Installation process 
+  - Install .netCore SDK 2.2 https://dotnet.microsoft.com/download/dotnet-core/2.2
+  - Use any version of Visual Studio
 
+2.	Software dependencies
+ - All dependencies are donwloaded as nuget packages
+ 
 # Build and Test
 TODO: Describe and show how to build your code and run the tests. 
 

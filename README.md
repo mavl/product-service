@@ -13,12 +13,8 @@ Product is a REST microservice to manage product data allowed operations
  - All dependencies are donwloaded as nuget packages
  
 # Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+1. Run build in Visual Studio 
+2. Deploy DB project to local Database 
+3. Update connection string in product-service/Products/Product.API/Properties/launchSettings.json
+4. run Product.API project to see swagger documentation
+5. Testing is possible directly from swagger page or is possible to use Postman https://www.postman.com/product/api-client

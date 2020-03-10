@@ -4,6 +4,11 @@
         <name>Product.API</name>
     </assembly>
     <members>
+        <member name="T:Product.API.Controllers.ProductController">
+            <summary>
+            Product API
+            </summary>
+        </member>
         <member name="M:Product.API.Controllers.ProductController.GetAll(Product.Domain.Interfaces.IProductService)">
             <summary>
             Returns collection of products

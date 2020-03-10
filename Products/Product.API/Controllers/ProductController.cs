@@ -9,6 +9,9 @@ using Product.Domain.Interfaces;
 
 namespace Product.API.Controllers
 {
+    /// <summary>
+    /// Product API
+    /// </summary>
     [Route("api/product")]
     [ApiController]
     public class ProductController : ControllerBase

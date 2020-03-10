@@ -51,6 +51,7 @@ namespace Product.API.Controllers
 
         [HttpPatch("{id}")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         public async Task<ActionResult> UpdateDescription([FromServices]IProductService productService, [FromRoute]long id, [FromBody]JsonPatchDocument productPatch)

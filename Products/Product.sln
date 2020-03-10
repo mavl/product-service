@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Domain", "Product.D
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ProductDatabase", "ProductDatabase\ProductDatabase.sqlproj", "{6AF9DF35-0EF9-4B05-A98F-A2DF9B965C6B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{71487815-B722-497F-8B15-329F5A3A1C10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit.TestsProduct.API", "UnitTests\Unit.TestsProduct.API\Unit.TestsProduct.API.csproj", "{19D26056-B7BF-4A08-A9F3-1BD62CF5C780}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,9 +39,16 @@ Global
 		{6AF9DF35-0EF9-4B05-A98F-A2DF9B965C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AF9DF35-0EF9-4B05-A98F-A2DF9B965C6B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6AF9DF35-0EF9-4B05-A98F-A2DF9B965C6B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{19D26056-B7BF-4A08-A9F3-1BD62CF5C780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19D26056-B7BF-4A08-A9F3-1BD62CF5C780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19D26056-B7BF-4A08-A9F3-1BD62CF5C780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19D26056-B7BF-4A08-A9F3-1BD62CF5C780}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19D26056-B7BF-4A08-A9F3-1BD62CF5C780} = {71487815-B722-497F-8B15-329F5A3A1C10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22DAB0E3-FA15-4974-BAC9-A40939159005}

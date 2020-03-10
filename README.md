@@ -1,5 +1,6 @@
 # Introduction 
-Product is a REST microservice to manage product data allowed operations
+Product is a REST microservice to manage product data
+allowed operations:
 - Get all products
 - Get product by id
 - Update product descrition

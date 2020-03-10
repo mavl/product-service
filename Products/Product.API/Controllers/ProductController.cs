@@ -13,6 +13,12 @@ namespace Product.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        /// <summary>
+        /// Returns collection of products
+        /// </summary>
+        /// <param name="productService"></param>
+        /// <returns></returns>
+        /// <response code="500">Internal server error</response>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Domain.Product>),200)]
         [ProducesResponseType(500)]
@@ -28,6 +34,14 @@ namespace Product.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns specific product by id
+        /// </summary>
+        /// <param name="productService"></param>
+        /// <param name="id">Product Id</param>
+        /// <returns></returns>
+        /// <response code="404">If product for provided id is not found</response>
+        /// <response code="500">Internal server error</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Domain.Product), 200)]
         [ProducesResponseType(404)]
@@ -48,6 +62,27 @@ namespace Product.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update description for provided product Id
+        /// </summary>
+        /// <remarks>
+        /// sample request:
+        /// [
+        ///   {
+        ///     "op":"replace",
+        ///     "path": "/Description",
+        ///     "value":"text"
+        ///   }
+        ///  ]
+        /// </remarks>
+        /// <param name="productService"></param>
+        /// <param name="id">Product Id</param>
+        /// <param name="productPatch">Product patch object - allowed only for Description attribute</param>
+        /// <returns></returns>
+        /// <response code="200">Update description succeeds returns no content</response>
+        /// <response code="400">If input object is not valid or patch is trying to update different parameters then description</response>
+        /// <response code="404">If product for provided id is not found</response>
+        /// <response code="500">Internal server error</response>
         [HttpPatch("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -58,7 +93,7 @@ namespace Product.API.Controllers
             try
             {
                 var allowedPath = new[] { $"/{nameof(Domain.Product.Description)}" };
-                if (productPatch.Operations.Any(op => !allowedPath.Contains(op.path)))
+                if (productPatch == null || productPatch.Operations.Any(op => !allowedPath.Contains(op.path)))
                 {
                     return BadRequest();
                 }

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Product.API</name>
+    </assembly>
+    <members>
+        <member name="M:Product.API.Controllers.ProductController.GetAll(Product.Domain.Interfaces.IProductService)">
+            <summary>
+            Returns collection of products
+            </summary>
+            <param name="productService"></param>
+            <returns></returns>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:Product.API.Controllers.ProductController.GetById(Product.Domain.Interfaces.IProductService,System.Int64)">
+            <summary>
+            Returns specific product by id
+            </summary>
+            <param name="productService"></param>
+            <param name="id">Product Id</param>
+            <returns></returns>
+            <response code="404">If product for provided id is not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:Product.API.Controllers.ProductController.UpdateDescription(Product.Domain.Interfaces.IProductService,System.Int64,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument)">
+            <summary>
+            Update description for provided product Id
+            </summary>
+            <remarks>
+            sample request:
+            [
+              {
+                "op":"replace",
+                "path": "/Description",
+                "value":"text"
+              }
+             ]
+            </remarks>
+            <param name="productService"></param>
+            <param name="id">Product Id</param>
+            <param name="productPatch">Product patch object - allowed only for Description attribute</param>
+            <returns></returns>
+            <response code="200">Update description succeeds returns no content</response>
+            <response code="400">If input object is not valid or patch is trying to update different parameters then description</response>
+            <response code="404">If product for provided id is not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="T:Product.API.Services.ProductService">
+            <summary>
+            <see cref="T:Product.Domain.Interfaces.IProductService"/>
+            </summary>
+        </member>
+    </members>
+</doc>
